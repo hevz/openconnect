@@ -168,6 +168,7 @@ static int process_attr(struct openconnect_info *vpninfo, int group, int attr,
 		break;
 
 	case GRP_ATTR(2, 1):
+#if 0
 		if (attrlen != 4)
 			goto badlen;
 		snprintf(buf, sizeof(buf), "%d.%d.%d.%d", data[0], data[1], data[2], data[3]);
@@ -180,9 +181,11 @@ static int process_attr(struct openconnect_info *vpninfo, int group, int attr,
 				break;
 			}
 		}
+#endif
 		break;
 
 	case GRP_ATTR(2, 2):
+#if 0
 		vpn_progress(vpninfo, PRG_DEBUG, _("Received DNS search domain %.*s\n"),
 			     attrlen, (char *)data);
 		vpninfo->ip_info.domain = add_option(vpninfo, "search", (char *)data, attrlen);
@@ -191,6 +194,7 @@ static int process_attr(struct openconnect_info *vpninfo, int group, int attr,
 			while ((p = strchr(p, ',')))
 				*p = ' ';
 		}
+#endif
 		break;
 
 	case GRP_ATTR(1, 1):
