@@ -1268,28 +1268,12 @@ int oncp_mainloop(struct openconnect_info *vpninfo, int *timeout, int readable)
 
 int oncp_bye(struct openconnect_info *vpninfo, const char *reason)
 {
-	char *orig_path;
-	char *res_buf=NULL;
-	int ret;
-
 	/* We need to close and reopen the HTTPS connection (to kill
 	 * the oncp tunnel) and submit a new HTTPS request to logout.
 	 */
 	openconnect_close_https(vpninfo, 0);
 
-	orig_path = vpninfo->urlpath;
-	vpninfo->urlpath = strdup("dana-na/auth/logout.cgi"); /* redirect segfaults without strdup */
-	ret = do_https_request(vpninfo, "GET", NULL, NULL, &res_buf, 0);
-	free(vpninfo->urlpath);
-	vpninfo->urlpath = orig_path;
-
-	if (ret < 0)
-		vpn_progress(vpninfo, PRG_ERR, _("Logout failed.\n"));
-	else
-		vpn_progress(vpninfo, PRG_INFO, _("Logout successful.\n"));
-
-	free(res_buf);
-	return ret;
+	return 0;
 }
 
 #ifdef HAVE_ESP
