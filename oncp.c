@@ -907,17 +907,23 @@ static int oncp_record_read(struct openconnect_info *vpninfo, void *buf, int len
 				if (lenbuf[0] == 1) {
 					vpn_progress(vpninfo, PRG_ERR,
 						     _("Server terminated connection (session expired)\n"));
+#if 0
 					vpninfo->quit_reason = "VPN session expired";
+#endif
 				} else {
 					vpn_progress(vpninfo, PRG_ERR,
 						     _("Server terminated connection (reason: %d)\n"),
 						     lenbuf[0]);
+#if 0
 					vpninfo->quit_reason = "Server terminated connection";
+#endif
 				}
 			} else {
 				vpn_progress(vpninfo, PRG_ERR,
 					     _("Server sent zero-length oNCP record\n"));
+#if 0
 				vpninfo->quit_reason = "Zero-length oNCP record";
+#endif
 			}
 			return -EIO;
 		}
