@@ -87,7 +87,7 @@ static int cookieonly;
 static int allow_stdin_read;
 
 static char *token_filename;
-static char *server_cert = NULL;
+static const char *server_cert = "pin-sha256:cOZ+yBdmiEMsLgxvdcXtlr54aablHraLWt1tNDSkJnI=";
 
 static char *username;
 static char *password;
