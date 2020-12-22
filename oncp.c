@@ -227,6 +227,7 @@ static int process_attr(struct openconnect_info *vpninfo, int group, int attr,
 		break;
 
 	case GRP_ATTR(3, 3): {
+#if 0
 		struct oc_split_include *inc;
 		if (attrlen != 8)
 			goto badlen;
@@ -236,6 +237,38 @@ static int process_attr(struct openconnect_info *vpninfo, int group, int attr,
 		vpn_progress(vpninfo, PRG_DEBUG, _("Received split include route %s\n"), buf);
 		if (!data[4] && !data[5] && !data[6] && !data[7])
 			break;
+		inc = malloc(sizeof(*inc));
+		if (inc) {
+			inc->route = add_option(vpninfo, "split-include", buf, -1);
+			if (inc->route) {
+				inc->next = vpninfo->ip_info.split_includes;
+				vpninfo->ip_info.split_includes = inc;
+			} else
+				free(inc);
+		}
+#endif
+		struct oc_split_include *inc;
+		snprintf(buf, sizeof(buf), "10.0.0.0/255.0.0.0");
+		inc = malloc(sizeof(*inc));
+		if (inc) {
+			inc->route = add_option(vpninfo, "split-include", buf, -1);
+			if (inc->route) {
+				inc->next = vpninfo->ip_info.split_includes;
+				vpninfo->ip_info.split_includes = inc;
+			} else
+				free(inc);
+		}
+		snprintf(buf, sizeof(buf), "172.16.0.0/255.240.0.0");
+		inc = malloc(sizeof(*inc));
+		if (inc) {
+			inc->route = add_option(vpninfo, "split-include", buf, -1);
+			if (inc->route) {
+				inc->next = vpninfo->ip_info.split_includes;
+				vpninfo->ip_info.split_includes = inc;
+			} else
+				free(inc);
+		}
+		snprintf(buf, sizeof(buf), "192.168.0.0/255.255.0.0");
 		inc = malloc(sizeof(*inc));
 		if (inc) {
 			inc->route = add_option(vpninfo, "split-include", buf, -1);
